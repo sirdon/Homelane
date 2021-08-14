@@ -6,6 +6,11 @@ import login from "../Authorization/login.js";
 import logout from "../Authorization/logout.js";
 import userRoutes from "../user/route.js";
 import userPost from "../user/index.js";
+routes.get("/access", (req, res) =>{
+console.log("running")
+return res.status(200).json({
+  success: true,
+})});
 routes.post("/login", login);
 routes.get("/logout", logout);
 userRoutes.post("/user", userPost.post);
