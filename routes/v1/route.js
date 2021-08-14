@@ -1,7 +1,8 @@
 import express from "express";
 //app config
-const app = express();
-const routes = express.Router();
+const routes = express();
+routes.use(express.json());
+// const routes = express.Router();
 import login from "../Authorization/login.js";
 import logout from "../Authorization/logout.js";
 import userRoutes from "../user/route.js";
