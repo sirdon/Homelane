@@ -8,22 +8,16 @@ async function getDateInfo(req, res, next) {
     let date = req.query.date || req.headers.date || req.body.date;
     if(!date) throw new Error("Please provide date");
     date = new Date(moment(date,'DD-MM-YYYY'))  //convert date string into date format
-    console.log(date)
     let vaccineData = await Vaccine.find({UpdatedOn:date})      //get vaccine data
     let testingData = await Testing.find({Date:date})           //get testing data
     let covid19Data = await Covid19.find({Date:date})           //get covid19 data
-    if(vaccineData && testingData && covid19Data)
-        {
-            console.log({vaccineData})
-            return res.status(200).send({                               //send success response if no error
+        return res.status(200).send({                               //send success response if no error
             timestamp: moment().unix(),
             success: true,
             vaccineData,
             testingData,
             covid19Data
-            });
-        }
-    else throw new Error("Error while fetching data")
+        });
   } catch (error) {                                             //catch error if occur
     return res.status(400).send({
       timestamp: moment().unix(),
@@ -65,18 +59,18 @@ async function pinPointState(req, res, next) {
         let date = req.query.date || req.headers.date || req.body.date;
         if(!date) throw new Error("Please provide date");
         date = new Date(moment(date,'DD-MM-YYYY'))                              //convert date string into date format
-      let state = req.query.state || req.headers.state || req.body.state;
-      if(!state) throw new Error("Please provide state");
-      let vaccineData = await Vaccine.find({State:state,UpdatedOn:date})           //get date and state wise vaccine data 
-      let testingData = await Testing.find({State:state,Date:date})                 //get date and state wise testing data 
-      let covid19Data = await Covid19.find({StateOrUnionTerritory:state,Date:date}) //get date and state wise covid19 data 
-      return res.status(200).send({                                                 //send success response if no error
-          timestamp: moment().unix(),
-          success: true,
-          vaccineData,
-          testingData,
-          covid19Data
-        });
+        let state = req.query.state || req.headers.state || req.body.state;
+        if(!state) throw new Error("Please provide state");
+        let vaccineData = await Vaccine.find({State:state,UpdatedOn:date})           //get date and state wise vaccine data 
+        let testingData = await Testing.find({State:state,Date:date})                 //get date and state wise testing data 
+        let covid19Data = await Covid19.find({StateOrUnionTerritory:state,Date:date}) //get date and state wise covid19 data 
+        return res.status(200).send({                                                 //send success response if no error
+            timestamp: moment().unix(),
+            success: true,
+            vaccineData,
+            testingData,
+            covid19Data
+            });
     } catch (error) {                                                               //catch error if occur
       return res.status(400).send({
         timestamp: moment().unix(),

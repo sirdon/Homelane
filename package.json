@@ -5,7 +5,7 @@
   "type": "module",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js",
+    "start": "node --max-old-space-size=8192 app.js",
     "test": "jest --coverage"
   },
   "keywords": [],
