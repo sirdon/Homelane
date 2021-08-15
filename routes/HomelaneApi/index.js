@@ -1,4 +1,4 @@
-import  { getDataInfo, pinPointState, getStateInfo } from "./get.js";
+import  { getDataInfo, pinPointState, getStateInfo,pinPointStateInfo } from "./get.js";
 export default {
-  get: { getDataInfo, pinPointState, getStateInfo },
+  get: { getDataInfo, pinPointState, getStateInfo,pinPointStateInfo },
 };
