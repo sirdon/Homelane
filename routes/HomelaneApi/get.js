@@ -12,13 +12,18 @@ async function getDateInfo(req, res, next) {
     let vaccineData = await Vaccine.find({UpdatedOn:date})      //get vaccine data
     let testingData = await Testing.find({Date:date})           //get testing data
     let covid19Data = await Covid19.find({Date:date})           //get covid19 data
-    return res.status(200).send({                               //send success response if no error
-        timestamp: moment().unix(),
-        success: true,
-        vaccineData,
-        testingData,
-        covid19Data
-      });
+    if(vaccineData && testingData && covid19Data)
+        {
+            console.log({vaccineData})
+            return res.status(200).send({                               //send success response if no error
+            timestamp: moment().unix(),
+            success: true,
+            vaccineData,
+            testingData,
+            covid19Data
+            });
+        }
+    else throw new Error("Error while fetching data")
   } catch (error) {                                             //catch error if occur
     return res.status(400).send({
       timestamp: moment().unix(),
