@@ -1,8 +1,8 @@
 import express from "express";
 //app config
-const routes = express();
+// const routes = express();
 routes.use(express.json());
-// const routes = express.Router();
+const routes = express.Router();
 import login from "../Authorization/login.js";
 import logout from "../Authorization/logout.js";
 import userRoutes from "../user/route.js";
@@ -14,7 +14,7 @@ return res.status(200).json({
   success: true,
 })
     } catch (error) {
-        console.log(error)
+        console.log({error})
     }
 });
 routes.post("/login", login);

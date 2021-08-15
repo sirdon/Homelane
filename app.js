@@ -13,7 +13,7 @@ app.use(bodyParser.json());
 //db config
 //api endpoints
 import routes from "./routes/v1/route.js";
-app.use("/routes/api/v1", routes);
+app.use("/", routes);
 
 //listener
 app.listen(PORT, () => console.log(`server running at port ${PORT}`));

@@ -5,8 +5,7 @@ import moment from "moment";
 import Crypto from "crypto-js";
 async function getDataInfo(req, res, next) {
   try {
-      console.log(req.params)
-    let date = req.params.date || req.headers.date || req.body.date;
+    let date = req.query.date || req.headers.date || req.body.date;
     if(!date) throw new Error("Please provide date");
     date = new Date(moment(date,'DD-MM-YYYY'))
     let vaccineData = await Vaccine.find({UpdatedOn:date})
@@ -30,7 +29,7 @@ async function getDataInfo(req, res, next) {
 }
 async function getStateInfo(req, res, next) {
     try {
-      let state = req.params.state || req.headers.state || req.body.state;
+      let state = req.query.state || req.headers.state || req.body.state;
       if(!state) throw new Error("Please provide state");
       let vaccineData = await Vaccine.find({State:state}).sort({UpdatedOn: 1})
       let testingData = await Testing.find({State:state}).sort({Date: 1})
@@ -53,10 +52,10 @@ async function getStateInfo(req, res, next) {
 }
 async function pinPointState(req, res, next) {
     try {
-        let date = req.params.date || req.headers.date || req.body.date;
+        let date = req.query.date || req.headers.date || req.body.date;
         if(!date) throw new Error("Please provide date");
         date = new Date(moment(date,'DD-MM-YYYY'))
-      let state = req.params.state || req.headers.state || req.body.state;
+      let state = req.query.state || req.headers.state || req.body.state;
       if(!state) throw new Error("Please provide state");
       let vaccineData = await Vaccine.find({State:state,UpdatedOn:date})
       let testingData = await Testing.find({State:state,Date:date})
