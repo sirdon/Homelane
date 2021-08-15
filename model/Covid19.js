@@ -14,5 +14,13 @@ const Covid19Schema = new Schema({
   modifiedAt: { type: Date, default: Date.now },
   createdAt: { type: Date, default: Date.now },
 });
+Covid19Schema.index(
+    {Date:1,StateOrUnionTerritory:1},
+    {
+        collation: { locale: "en", strength: 2 },
+        name: "Date_1_StateOrUnionTerritory_1",
+        unique: true,
+    }
+)
 
 export default mongoose.model("Covid19", Covid19Schema);

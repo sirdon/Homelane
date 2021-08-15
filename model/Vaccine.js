@@ -22,4 +22,12 @@ const VaccineSchema = new Schema({
     TotalIndividualsVaccinated:{type:Number},
     createdAt: { type: Date, default: Date.now },
 });
+VaccineSchema.index(
+    {UpdatedOn:1,State:1},
+    {
+        collation: { locale: "en", strength: 2 },
+        name: "UpdatedOn_1_State_1",
+        unique: true,
+    }
+)
 export default mongoose.model("Vaccine", VaccineSchema);

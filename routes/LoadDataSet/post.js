@@ -49,7 +49,7 @@ const testingHeader = {
 export default async function (req, res, next) {
     try {
         var csvData=[];
-        fs.createReadStream("public/Book2.csv")
+        fs.createReadStream("public/Book3.csv")
             .pipe(parse({delimiter: ','}))
             .on('data', function(csvrow) {
                 // console.log(csvrow);
@@ -57,7 +57,7 @@ export default async function (req, res, next) {
                 csvData.push(csvrow);        
             })
             .on('end',async function() {
-            await uploadData(csvData,Covid19,covid19Header,req,res)
+            await uploadData(csvData,Testing,testingHeader,req,res)
             });
     } catch (err) {
         return res.status(400).send({
