@@ -9,9 +9,7 @@ import cors from "cors";
 app.use(cors());
 app.use(bodyParser.json());
 //middleware
-// app.use(express.json());
-//db config
-//api endpoints
+//api endpoints routes
 import routes from "./routes/v1/route.js";
 app.use("/", routes);
 

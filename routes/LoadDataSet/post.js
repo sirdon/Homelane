@@ -6,7 +6,7 @@ import Vaccine from "../../model/Vaccine.js";
 import Covid19 from "../../model/Covid19.js";
 import Testing from "../../model/Testing.js";
 dotenv.config();
-const vaccineHeader = {
+const vaccineHeader = {                     //vaccine document headers
     'Updated On':"UpdatedOn",
     'State':"State",
     'Total Doses Administered':"TotalDosesAdministered",
@@ -26,7 +26,7 @@ const vaccineHeader = {
     '60+ years (Age)':"years60Plus",
     'Total Individuals Vaccinated':"TotalIndividualsVaccinated"
 }
-const covid19Header = {
+const covid19Header = {                     //covid document headers
     Sno:"Sno",
     "Date":"Date",
     Time:"Time",
@@ -38,7 +38,7 @@ const covid19Header = {
     Confirmed:"Confirmed"
 
 }
-const testingHeader = {
+const testingHeader = {                     //testing document headers
     "Date":"Date",
     State:"State",
     TotalSamples:"TotalSamples",
@@ -52,12 +52,10 @@ export default async function (req, res, next) {
         fs.createReadStream("public/Book3.csv")
             .pipe(parse({delimiter: ','}))
             .on('data', function(csvrow) {
-                // console.log(csvrow);
-                //do something with csvrow
                 csvData.push(csvrow);        
             })
             .on('end',async function() {
-            await uploadData(csvData,Testing,testingHeader,req,res)
+                await uploadData(csvData,Testing,testingHeader,req,res)
             });
     } catch (err) {
         return res.status(400).send({
@@ -65,7 +63,6 @@ export default async function (req, res, next) {
             success: false,
             message: err.message,
             err: err,
-            
         });
     }
 }
@@ -73,23 +70,21 @@ export default async function (req, res, next) {
 async function uploadData(dataSet,Model,modelHeader,req,res){
     try {
         if(dataSet && dataSet.length==0) throw new Error("Empty file");
-        const header = dataSet[0]; //copy headers from dataSet
-        dataSet.shift() // remove headers from dataSet
+        const header = dataSet[0];          //copy headers from dataSet
+        dataSet.shift()                     // remove headers from dataSet
         let promArr = dataSet.map(async data=>{
             let obj = {};
-            header.map((head,idx)=>{
+            header.map((head,idx)=>{                       //create JSON from data for saving into DB
                 if(modelHeader[head]=="UpdatedOn" || modelHeader[head]=="Date" ){
-                    obj[modelHeader[head]]=new Date(moment(data[idx],'DD-MM-YYYY'))
+                    obj[modelHeader[head]]=new Date(moment(data[idx],'DD-MM-YYYY'))         //convert date string into date format
                 }else if(data[idx]=="" || data[idx]=="-"){
-                    obj[modelHeader[head]]=0;
+                    obj[modelHeader[head]]=0;                           //convert empty values
                 }else{
-
                     obj[modelHeader[head]]=data[idx]
                 }
             })
-            // console.log(obj)
             const model = new Model(obj);
-            return await model.save()
+            return await model.save()               //save data into DB
         })
         Promise.all(promArr).then((info)=>{
             res.status(200).json({
