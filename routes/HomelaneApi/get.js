@@ -7,8 +7,8 @@ async function getDateInfo(req, res, next) {
   try {
     let date = req.query.date || req.headers.date || req.body.date;
     if(!date) throw new Error("Please provide date");
-    console.log(date)
     date = new Date(moment(date,'DD-MM-YYYY'))  //convert date string into date format
+    console.log(date)
     let vaccineData = await Vaccine.find({UpdatedOn:date})      //get vaccine data
     let testingData = await Testing.find({Date:date})           //get testing data
     let covid19Data = await Covid19.find({Date:date})           //get covid19 data
