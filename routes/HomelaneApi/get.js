@@ -2,7 +2,7 @@ import Covid19 from "../../model/Covid19.js";
 import Testing from "../../model/Testing.js";
 import Vaccine from "../../model/Vaccine.js";
 import moment from "moment";
-async function getDataInfo(req, res, next) {
+async function getDateInfo(req, res, next) {
   try {
     let date = req.query.date || req.headers.date || req.body.date;
     if(!date) throw new Error("Please provide date");
@@ -75,7 +75,7 @@ async function pinPointState(req, res, next) {
       });
     }
 }
-async function pinPointStateInfo(req, res, next) {
+async function pinPointInfo(req, res, next) {
     try {
         let date = req.query.date || req.headers.date || req.body.date;
         if(!date) throw new Error("Please provide date");
@@ -118,4 +118,4 @@ async function pinPointStateInfo(req, res, next) {
     }
 }
 
-export { getDataInfo, pinPointState, getStateInfo,pinPointStateInfo };
+export { getDateInfo, pinPointState, getStateInfo,pinPointInfo };
