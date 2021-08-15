@@ -1,8 +1,8 @@
 import express from "express";
 //app config
 // const routes = express();
-routes.use(express.json());
 const routes = express.Router();
+routes.use(express.json());
 import login from "../Authorization/login.js";
 import logout from "../Authorization/logout.js";
 import userRoutes from "../user/route.js";

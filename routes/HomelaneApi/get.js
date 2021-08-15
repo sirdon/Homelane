@@ -2,7 +2,6 @@ import Covid19 from "../../model/Covid19.js";
 import Testing from "../../model/Testing.js";
 import Vaccine from "../../model/Vaccine.js";
 import moment from "moment";
-import Crypto from "crypto-js";
 async function getDataInfo(req, res, next) {
   try {
     let date = req.query.date || req.headers.date || req.body.date;

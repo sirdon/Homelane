@@ -65,7 +65,7 @@ export default async function (req, res, next) {
             success: false,
             message: err.message,
             err: err,
-            stack:err.stack
+            
         });
     }
 }
@@ -87,7 +87,7 @@ async function uploadData(dataSet,Model,modelHeader,req,res){
                     obj[modelHeader[head]]=data[idx]
                 }
             })
-            console.log(obj)
+            // console.log(obj)
             const model = new Model(obj);
             return await model.save()
         })
@@ -113,7 +113,7 @@ async function uploadData(dataSet,Model,modelHeader,req,res){
             success: false,
             message: err.message,
             err: err,
-            stack:err.stack
+            
         });
     }
 }
