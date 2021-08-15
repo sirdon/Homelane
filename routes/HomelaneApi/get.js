@@ -12,6 +12,7 @@ async function getDateInfo(req, res, next) {
     let vaccineData = await Vaccine.find({UpdatedOn:date})      //get vaccine data
     let testingData = await Testing.find({Date:date})           //get testing data
     let covid19Data = await Covid19.find({Date:date})           //get covid19 data
+    vaccineData.push([1,2,3,4,4])
     if(vaccineData && testingData && covid19Data)
         {
             console.log({vaccineData})
