@@ -21,7 +21,7 @@ return res.status(200).json({
 });
 routes.post("/login", login);
 routes.get("/logout", logout);
-userRoutes.post("/user", userPost.post);
+routes.post("/user", userPost.post);
 // token validation
 routes.use(validateToken);
 //user routes
